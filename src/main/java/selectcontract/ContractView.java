@@ -4,6 +4,9 @@
  */
 package selectcontract;
 
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Dylan
@@ -214,4 +217,49 @@ public class ContractView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton jPrevButton;
     // End of variables declaration//GEN-END:variables
+
+    // Manually entered methods go here:
+    // Add listeners to buttons
+    void addPrevListener(ActionListener listenForPrevButton){
+        jPrevButton.addActionListener(listenForPrevButton);
+    }
+    
+    void addNextListener(ActionListener listenForNextButton){
+        jNextButton.addActionListener(listenForNextButton);
+    }
+    
+    void addBidListener(ActionListener listenForBidButton){
+        jBidButton.addActionListener(listenForBidButton);
+    }
+    
+    // Display error message
+    void displayErrorMessage(String errorMessage){
+        JOptionPane.showMessageDialog(this, errorMessage);
+    }
+    
+    // Set jLabel contents
+    void setContractID(String contractID){
+        jLabelContractID.setText(contractID);
+    }
+    
+    void setOriginCity(String originCity){
+        jLabelOriginCity.setText(originCity);
+    }
+    
+    void setDestCity(String destCity){
+        jLabelDestCity.setText(destCity);
+    }
+    
+    void setOrderItem(String orderItem){
+        jLabelOrderItem.setText(orderItem);
+    }
+    
+    void setContractCount(String contractCount){
+        jLabelContractCount.setText(contractCount);
+    }
+    
+    // Update ContractCount String
+    void updateContractViewPanel(int currentContractNum, int contractCount){
+        setContractCount((1+currentContractNum) + " of " + contractCount + " contracts");
+    }
 }

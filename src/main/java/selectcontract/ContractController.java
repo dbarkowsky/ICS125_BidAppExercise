@@ -29,13 +29,23 @@ class ContractController {
     
     private void setUpDisplay(){
         try {
-            theView.setContractID("???");
-            theView.setDestCity("???");
-            theView.setOriginCity("???");
-            theView.setOrderItem("???");
+            if (theModel.foundContracts()){
+                Contract c = theModel.getTheContract();
+                theView.setContractID(c.getContractID());
+                theView.setDestCity(c.getDestCity());
+                theView.setOriginCity(c.getOriginCity());
+                theView.setOrderItem(c.getOrderItem());
+                theView.updateContractViewPanel(theModel.getCurrentContractNum(), theModel.getContractCount());
+            } else {
+                theView.setContractID("???");
+                theView.setDestCity("???");
+                theView.setOriginCity("???");
+                theView.setOrderItem("???");
+            }
         } catch (Error ex){
             System.out.println(ex);
-            theView.displayErrorMessage("Error: There was a problem setting the contract.\n");
+            theView.displayErrorMessage("Error: There was a problem setting the contract.\n"
+                    + "                 Contract number: " + theModel.getCurrentContractNum());
         }
     }
     
@@ -66,7 +76,7 @@ class ContractController {
         @Override
         public void actionPerformed(ActionEvent e){
             //if last contract, can't go forward further
-            if(theModel.getCurrentContractNum() == 0){
+            if(theModel.getCurrentContractNum() == theModel.getContractCount() - 1){
                 return;
             }
             

@@ -62,20 +62,25 @@ public class ContractView extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(51, 0, 51));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Contract ID:");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Origin:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Destination:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Order:");
 
         jLabelContractID.setBackground(new java.awt.Color(204, 204, 255));
         jLabelContractID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabelContractID.setForeground(new java.awt.Color(255, 255, 255));
         jLabelContractID.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelContractID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
         jLabelContractID.setMaximumSize(new java.awt.Dimension(57, 27));
@@ -84,35 +89,49 @@ public class ContractView extends javax.swing.JFrame {
 
         jLabelOriginCity.setBackground(new java.awt.Color(204, 204, 255));
         jLabelOriginCity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabelOriginCity.setForeground(new java.awt.Color(255, 255, 255));
         jLabelOriginCity.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelOriginCity.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
         jLabelOriginCity.setPreferredSize(new java.awt.Dimension(57, 27));
 
         jLabelDestCity.setBackground(new java.awt.Color(204, 204, 255));
         jLabelDestCity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabelDestCity.setForeground(new java.awt.Color(255, 255, 255));
         jLabelDestCity.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelDestCity.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
         jLabelDestCity.setPreferredSize(new java.awt.Dimension(57, 27));
 
         jLabelOrderItem.setBackground(new java.awt.Color(204, 204, 255));
         jLabelOrderItem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabelOrderItem.setForeground(new java.awt.Color(255, 255, 255));
         jLabelOrderItem.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelOrderItem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
         jLabelOrderItem.setPreferredSize(new java.awt.Dimension(57, 27));
 
         jLabelContractCount.setBackground(new java.awt.Color(204, 204, 255));
         jLabelContractCount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabelContractCount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
+        jLabelContractCount.setForeground(new java.awt.Color(255, 255, 255));
         jLabelContractCount.setPreferredSize(new java.awt.Dimension(57, 27));
 
+        jNextButton.setBackground(new java.awt.Color(51, 51, 51));
         jNextButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jNextButton.setForeground(new java.awt.Color(255, 255, 255));
         jNextButton.setText("Next");
 
+        jBidButton.setBackground(new java.awt.Color(51, 51, 51));
         jBidButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jBidButton.setForeground(new java.awt.Color(255, 255, 255));
         jBidButton.setText("Bid");
 
+        jPrevButton.setBackground(new java.awt.Color(51, 51, 51));
         jPrevButton.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jPrevButton.setForeground(new java.awt.Color(255, 255, 255));
         jPrevButton.setText("Previous");
+        jPrevButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPrevButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -200,6 +219,10 @@ public class ContractView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jPrevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPrevButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPrevButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBidButton;
@@ -260,6 +283,14 @@ public class ContractView extends javax.swing.JFrame {
     
     // Update ContractCount String
     void updateContractViewPanel(int currentContractNum, int contractCount){
-        setContractCount((1+currentContractNum) + " of " + contractCount + " contracts");
+        setContractCount((1 + currentContractNum) + " of " + contractCount + " contracts");
+        if (currentContractNum == 0)
+            jPrevButton.setEnabled(false);
+        else if (currentContractNum == contractCount - 1)
+            jNextButton.setEnabled(false);
+        else {
+            jPrevButton.setEnabled(true);
+            jNextButton.setEnabled(true);
+        }
     }
 }

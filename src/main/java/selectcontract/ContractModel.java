@@ -16,6 +16,11 @@ import java.util.ArrayList;
 class ContractModel {
     private ArrayList<Contract> theContracts;
     private int contractCounter; //for currently displayed contract, not total
+    private static final int NUMBER_OF_CONTRACT_ATTRIBUTES = 4;
+    private static final int INDEX_OF_CONTRACT_ID = 0;
+    private static final int INDEX_OF_ORIGIN_CITY = 1;
+    private static final int INDEX_OF_DEST_CITY = 2;
+    private static final int INDEX_OF_ORDER_ID = 3;
     
     ContractModel(String fileName){
         theContracts = new ArrayList<Contract>();
@@ -30,12 +35,12 @@ class ContractModel {
             //while the next line of the file exists
             while((line = bufferedReader.readLine()) != null){
                 //break it into an array, assign values
-                String [] tokens = line.split(",", 4);
+                String [] tokens = line.split(",", NUMBER_OF_CONTRACT_ATTRIBUTES);
                 
-                String contractID = tokens[0];
-                String originCity = tokens[1];
-                String destCity = tokens[2];
-                String orderItem = tokens[3];
+                String contractID = tokens[INDEX_OF_CONTRACT_ID];
+                String originCity = tokens[INDEX_OF_ORIGIN_CITY];
+                String destCity = tokens[INDEX_OF_DEST_CITY];
+                String orderItem = tokens[INDEX_OF_ORDER_ID];
                 
                 Contract dataContract = new Contract(contractID, originCity, destCity, orderItem);
                 

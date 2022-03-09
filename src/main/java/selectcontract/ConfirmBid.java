@@ -211,38 +211,47 @@ public class ConfirmBid extends javax.swing.JDialog {
 
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         System.out.println(jSpinner1.getValue());
+        System.out.println(jSpinner1.getValue().toString());
+        System.out.println(Integer.parseInt(jSpinner1.getValue().toString()));
         
         String name = jTextName.getText();
         //if name field isn't empty and name is only normal characters
         if(!name.equals("") && isAllCharacters(name)){
             
-            //create int from bid information
-            int bidAmount = Integer.getInteger(jSpinner1.getValue().toString(), 100);          
-            NumberFormat currency = NumberFormat.getCurrencyInstance();
-            
-            //create date and format
-            ZonedDateTime currentDate = ZonedDateTime.now();
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMMM dd yyyy HH:mmz");
-            
-            String outputString =   name + ", " +
-                                    jLabelContractID.getText() + ", " +
-                                    currency.format(bidAmount) + ", " + 
-                                    currentDate.format(dateFormat);
-        
-            //try to write to file, otherwise print error message
-            try {
-                //set up file writer
-                File contractRecords = new File("./MyContractBids.txt");
-                FileWriter filewriter = new FileWriter(contractRecords, true);
-                BufferedWriter output = new BufferedWriter(filewriter);
+            //if bid is only numbers
+            if(isNumber(jSpinner1.getValue().toString())){
+                //create int from bid information
+                int bidAmount = Integer.parseInt(jSpinner1.getValue().toString());          
+                NumberFormat currency = NumberFormat.getCurrencyInstance();
 
-                output.write(outputString);
-                output.newLine();
-                output.close();
-            } catch (IOException ex) {
-                System.out.println("Error: " + ex);
-                JOptionPane.showMessageDialog(jDialog, "File could not be created. Check file permissions.");
+                //create date and format
+                ZonedDateTime currentDate = ZonedDateTime.now();
+                DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMMM dd yyyy HH:mmz");
+
+                String outputString =   name + ", " +
+                                        jLabelContractID.getText() + ", " +
+                                        currency.format(bidAmount) + ", " + 
+                                        currentDate.format(dateFormat);
+
+                //try to write to file, otherwise print error message
+                try {
+                    //set up file writer
+                    File contractRecords = new File("./MyContractBids.txt");
+                    FileWriter filewriter = new FileWriter(contractRecords, true);
+                    BufferedWriter output = new BufferedWriter(filewriter);
+
+                    output.write(outputString);
+                    output.newLine();
+                    output.close();
+                    JOptionPane.showMessageDialog(jDialog, "Your name as " + name + " with bid amount " + currency.format(bidAmount) + " has been successfully saved.");
+                } catch (IOException ex) {
+                    System.out.println("Error: " + ex);
+                    JOptionPane.showMessageDialog(jDialog, "File could not be created. Check file permissions.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(jDialog, "Your bid must be numbers only!");
             }
+            
         } else {
             JOptionPane.showMessageDialog(jDialog, "Name must not be blank or contain non-alphabetic characters.");
         }
@@ -257,6 +266,13 @@ public class ConfirmBid extends javax.swing.JDialog {
                 bool = false;
         }
         return bool;
+    }
+    
+    private boolean isNumber(String number){
+        if(number != null && number.matches("[0-9]*"))
+            return true;
+        else
+            return false;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

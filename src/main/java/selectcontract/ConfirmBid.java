@@ -4,6 +4,17 @@
  */
 package selectcontract;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.NumberFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
@@ -200,8 +211,53 @@ public class ConfirmBid extends javax.swing.JDialog {
 
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         System.out.println(jSpinner1.getValue());
+        
+        String name = jTextName.getText();
+        //if name field isn't empty and name is only normal characters
+        if(!name.equals("") && isAllCharacters(name)){
+            
+            //create int from bid information
+            int bidAmount = Integer.getInteger(jSpinner1.getValue().toString(), 100);          
+            NumberFormat currency = NumberFormat.getCurrencyInstance();
+            
+            //create date and format
+            ZonedDateTime currentDate = ZonedDateTime.now();
+            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMMM dd yyyy HH:mmz");
+            
+            String outputString =   name + ", " +
+                                    jLabelContractID.getText() + ", " +
+                                    currency.format(bidAmount) + ", " + 
+                                    currentDate.format(dateFormat);
+        
+            //try to write to file, otherwise print error message
+            try {
+                //set up file writer
+                File contractRecords = new File("./MyContractBids.txt");
+                FileWriter filewriter = new FileWriter(contractRecords, true);
+                BufferedWriter output = new BufferedWriter(filewriter);
+
+                output.write(outputString);
+                output.newLine();
+                output.close();
+            } catch (IOException ex) {
+                System.out.println("Error: " + ex);
+                JOptionPane.showMessageDialog(jDialog, "File could not be created. Check file permissions.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(jDialog, "Name must not be blank or contain non-alphabetic characters.");
+        }
+        
+        
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
+    private boolean isAllCharacters(String name){
+        boolean bool = true;
+        for(char character: name.toCharArray()){
+            if(!Character.isAlphabetic(character))
+                bool = false;
+        }
+        return bool;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;

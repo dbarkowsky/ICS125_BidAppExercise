@@ -57,7 +57,7 @@ public class ContractView extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("jLabel5");
+        jLabel5.setText("City of Origin");
 
         jComboOriginCity.setBackground(new java.awt.Color(102, 102, 102));
         jComboOriginCity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -73,7 +73,7 @@ public class ContractView extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addGap(183, 183, 183)
                 .addComponent(jComboOriginCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(337, Short.MAX_VALUE))
+                .addContainerGap(288, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

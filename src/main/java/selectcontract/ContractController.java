@@ -116,7 +116,10 @@ class ContractController {
             
             try {
                 //bid on contract
-                //FIX ME
+                ConfirmBid cb = new ConfirmBid(theView, true, theModel.getTheContract());
+                //centres dialogue on screen
+                cb.setLocationRelativeTo(null);
+                cb.setVisible(true);
             } catch (Exception ex){
                 System.out.println(ex);
                 theView.displayErrorMessage("Error: Could not bid on this contract.");

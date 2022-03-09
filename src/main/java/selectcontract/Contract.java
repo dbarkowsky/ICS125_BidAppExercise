@@ -36,4 +36,9 @@ public class Contract {
     String getOrderItem(){
         return orderItem;
     }
+
+    //checks if city is in this contract
+    boolean contains(String city) {
+        return originCity.equals(city);
+    }
 }

@@ -8,6 +8,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  *
@@ -15,7 +17,11 @@ import java.util.ArrayList;
  */
 class ContractModel {
     private ArrayList<Contract> theContracts;
+    private ArrayList<Contract> theContractsAll;
     private int contractCounter; //for currently displayed contract, not total
+    private SortedSet<String> originCityList;
+    
+    
     private static final int NUMBER_OF_CONTRACT_ATTRIBUTES = 4;
     private static final int INDEX_OF_CONTRACT_ID = 0;
     private static final int INDEX_OF_ORIGIN_CITY = 1;
@@ -25,6 +31,7 @@ class ContractModel {
     ContractModel(String fileName){
         theContracts = new ArrayList<Contract>();
         contractCounter = 0;
+        originCityList = new TreeSet<>();
         
         try {
             //wrap filereader in buffered reader
@@ -46,8 +53,13 @@ class ContractModel {
                 
                 //add new contract to array list
                 theContracts.add(dataContract);
+                //add originCity to originCityList combo box
+                originCityList.add(originCity);
             }
-            
+            //add "All" to the combo box
+            originCityList.add("All");
+            //copy theContracts to theContractsAll
+            theContractsAll = new ArrayList<>(theContracts);
             fileReader.close();
         } catch (IOException ex){
             System.out.println(ex.getMessage());
@@ -81,5 +93,23 @@ class ContractModel {
     public void prevContract(){
         if (contractCounter > 0)
             contractCounter--;
+    }
+    
+    //returns originCityList as a String array
+    //needed for display in combo box
+    public String[] getOriginCityList(){
+        String[] temp;
+        temp = originCityList.toArray(new String[originCityList.size()]);
+        return temp;
+    }
+    
+    //accepts city name as string
+    //removes all matching cities from theContracts
+    public void updateContractList(String city){
+        theContracts = new ArrayList<>(theContractsAll);
+        if(!city.equals("All")){
+            theContracts.removeIf(s -> !s.contains(city));
+        }
+        contractCounter = 0;
     }
 }

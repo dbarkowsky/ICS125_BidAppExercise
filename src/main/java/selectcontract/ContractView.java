@@ -5,6 +5,8 @@
 package selectcontract;
 
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,6 +32,8 @@ public class ContractView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jComboOriginCity = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -49,15 +53,36 @@ public class ContractView extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(750, 600));
         setPreferredSize(new java.awt.Dimension(750, 600));
 
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("jLabel5");
+
+        jComboOriginCity.setBackground(new java.awt.Color(102, 102, 102));
+        jComboOriginCity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboOriginCity.setForeground(new java.awt.Color(255, 255, 255));
+        jComboOriginCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 644, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addGap(183, 183, 183)
+                .addComponent(jComboOriginCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(337, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 91, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(38, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jComboOriginCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34))
         );
 
         jPanel2.setBackground(new java.awt.Color(51, 0, 51));
@@ -236,10 +261,12 @@ public class ContractView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBidButton;
+    private javax.swing.JComboBox<String> jComboOriginCity;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelContractCount;
     private javax.swing.JLabel jLabelContractID;
     private javax.swing.JLabel jLabelDestCity;
@@ -263,6 +290,10 @@ public class ContractView extends javax.swing.JFrame {
     
     void addBidListener(ActionListener listenForBidButton){
         jBidButton.addActionListener(listenForBidButton);
+    }
+    
+    void addComboBoxListener(ItemListener listenForComboBox){
+        jComboOriginCity.addItemListener(listenForComboBox);
     }
     
     // Display error message
@@ -289,6 +320,12 @@ public class ContractView extends javax.swing.JFrame {
     
     void setContractCount(String contractCount){
         jLabelContractCount.setText(contractCount);
+    }
+    
+    //populates combo box with string array
+    void setOriginCityList(String [] cityList){
+        final DefaultComboBoxModel model = new DefaultComboBoxModel(cityList);
+        this.jComboOriginCity.setModel(model);
     }
     
     // Update ContractCount String

@@ -219,7 +219,7 @@ public class ConfirmBid extends javax.swing.JDialog {
         if(!name.equals("") && isAllCharacters(name)){
             
             //if bid is only numbers
-            if(isNumber(jSpinner1.getValue().toString())){
+            if(isNumber(jSpinner1.getValue().toString()) && (Integer)jSpinner1.getValue() % 50 == 0){
                 //create int from bid information
                 int bidAmount = Integer.parseInt(jSpinner1.getValue().toString());          
                 NumberFormat currency = NumberFormat.getCurrencyInstance();
@@ -249,14 +249,12 @@ public class ConfirmBid extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(jDialog, "File could not be created. Check file permissions.");
                 }
             } else {
-                JOptionPane.showMessageDialog(jDialog, "Your bid must be numbers only!");
+                JOptionPane.showMessageDialog(jDialog, "Your bid must be only numbers in multiples of $50.");
             }
             
         } else {
             JOptionPane.showMessageDialog(jDialog, "Name must not be blank or contain non-alphabetic characters.");
         }
-        
-        
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
     private boolean isAllCharacters(String name){

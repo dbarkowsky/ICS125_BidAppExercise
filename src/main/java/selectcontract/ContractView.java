@@ -331,15 +331,18 @@ public class ContractView extends javax.swing.JFrame {
     // Update ContractCount String
     void updateContractViewPanel(int currentContractNum, int contractCount){
         setContractCount((1 + currentContractNum) + " of " + contractCount + " contracts");
-        if (currentContractNum == 0){
+        if (currentContractNum == 0 && currentContractNum == contractCount - 1){
             jPrevButton.setEnabled(false);
-            jNextButton.setEnabled(true);
+            jNextButton.setEnabled(false);
         } else if (currentContractNum == contractCount - 1){
             jPrevButton.setEnabled(true);
             jNextButton.setEnabled(false);
+        } else if (currentContractNum == 0){
+            jPrevButton.setEnabled(false);
+            jNextButton.setEnabled(true);
         } else {
             jPrevButton.setEnabled(true);
             jNextButton.setEnabled(true);
-        }
+        }       
     }
 }

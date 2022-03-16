@@ -47,6 +47,10 @@ public class ContractView extends javax.swing.JFrame {
         jNextButton = new javax.swing.JButton();
         jBidButton = new javax.swing.JButton();
         jPrevButton = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuFile = new javax.swing.JMenu();
+        jMenuEdit = new javax.swing.JMenu();
+        jMenuNewContract = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bid on Contracts");
@@ -230,6 +234,23 @@ public class ContractView extends javax.swing.JFrame {
                 .addGap(31, 31, 31))
         );
 
+        jMenuFile.setText("File");
+        jMenuBar1.add(jMenuFile);
+
+        jMenuEdit.setText("Edit");
+
+        jMenuNewContract.setLabel("New Contract");
+        jMenuNewContract.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuNewContractActionPerformed(evt);
+            }
+        });
+        jMenuEdit.add(jMenuNewContract);
+
+        jMenuBar1.add(jMenuEdit);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -258,6 +279,10 @@ public class ContractView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPrevButtonActionPerformed
 
+    private void jMenuNewContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuNewContractActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuNewContractActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBidButton;
@@ -272,6 +297,10 @@ public class ContractView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelDestCity;
     private javax.swing.JLabel jLabelOrderItem;
     private javax.swing.JLabel jLabelOriginCity;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuEdit;
+    private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenuItem jMenuNewContract;
     private javax.swing.JButton jNextButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

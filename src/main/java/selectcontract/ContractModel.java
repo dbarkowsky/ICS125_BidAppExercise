@@ -66,6 +66,7 @@ class ContractModel {
         }
     }
     
+    
     boolean foundContracts(){
         if (theContracts.size() > 0)
             return true;

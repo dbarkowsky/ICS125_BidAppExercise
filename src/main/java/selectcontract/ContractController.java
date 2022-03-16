@@ -26,6 +26,7 @@ class ContractController {
         this.theView.addBidListener(new BidButtonListener());
         this.theView.addNextListener(new NextButtonListener());
         this.theView.addComboBoxListener(new ComboListener());
+        this.theView.addNewContractListener(new NewContractListener());
         
         theView.setOriginCityList(theModel.getOriginCityList());
         setUpDisplay();
@@ -126,6 +127,14 @@ class ContractController {
             }
             
             setUpDisplay();
+        }
+    }
+    
+    class NewContractListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            NewContract newContractView = new NewContract();
+            newContractView.setVisible(true);
         }
     }
 }

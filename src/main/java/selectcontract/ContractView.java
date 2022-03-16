@@ -240,11 +240,6 @@ public class ContractView extends javax.swing.JFrame {
         jMenuEdit.setText("Edit");
 
         jMenuNewContract.setLabel("New Contract");
-        jMenuNewContract.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuNewContractActionPerformed(evt);
-            }
-        });
         jMenuEdit.add(jMenuNewContract);
 
         jMenuBar1.add(jMenuEdit);
@@ -278,10 +273,6 @@ public class ContractView extends javax.swing.JFrame {
     private void jPrevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPrevButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPrevButtonActionPerformed
-
-    private void jMenuNewContractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuNewContractActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuNewContractActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -323,6 +314,10 @@ public class ContractView extends javax.swing.JFrame {
     
     void addComboBoxListener(ItemListener listenForComboBox){
         jComboOriginCity.addItemListener(listenForComboBox);
+    }
+    
+    void addNewContractListener(ActionListener listenForNewContract){
+        jMenuNewContract.addActionListener(listenForNewContract);
     }
     
     // Display error message

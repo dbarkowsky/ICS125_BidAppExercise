@@ -4,17 +4,24 @@
  */
 package selectcontract;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Dylan
  */
 public class NewContract extends javax.swing.JFrame {
-
+    
+    //pre-determined list of city choices
+    private final String [] cityList = {"Victoria", "Vancouver", "Seattle", "Nanaimo", "Prince George"};
     /**
      * Creates new form NewContract
      */
     public NewContract() {
+        System.out.println("Creating new contract window");
         initComponents();
+        setCityLists();
     }
 
     /**
@@ -63,12 +70,27 @@ public class NewContract extends javax.swing.JFrame {
 
         jButtonReset.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonReset.setText("Reset");
+        jButtonReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonResetActionPerformed(evt);
+            }
+        });
 
         jButtonCancel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonCancel.setText("Cancel");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelActionPerformed(evt);
+            }
+        });
 
         jButtonSave.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonSave.setText("Save");
+        jButtonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaveActionPerformed(evt);
+            }
+        });
 
         jComboBoxOriginCity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jComboBoxOriginCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -150,6 +172,23 @@ public class NewContract extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
+        // TODO add your handling code here:
+        this.jTextFieldContractID.setText("");
+        this.jTextFieldOrderItem.setText("");
+        setCityLists(); //dirty way to reset list values
+    }//GEN-LAST:event_jButtonResetActionPerformed
+
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        // TODO add your handling code here:
+        //targets jFrame and closes the window
+        this.dispose();
+    }//GEN-LAST:event_jButtonCancelActionPerformed
+
+    private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSaveActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;
@@ -165,4 +204,22 @@ public class NewContract extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldContractID;
     private javax.swing.JTextField jTextFieldOrderItem;
     // End of variables declaration//GEN-END:variables
+    
+
+    // Display error message
+    void displayErrorMessage(String errorMessage){
+        JOptionPane.showMessageDialog(this, errorMessage);
+    }
+    
+    //populates combo box with string array
+    private void setCityLists(){
+        final DefaultComboBoxModel destModel = new DefaultComboBoxModel(cityList);
+        final DefaultComboBoxModel originModel = new DefaultComboBoxModel(cityList);
+        this.jComboBoxOriginCity.setModel(originModel);
+        this.jComboBoxDestCity.setModel(destModel);
+    }
+
 }
+
+
+

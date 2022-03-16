@@ -26,17 +26,125 @@ public class NewContract extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabelContractID = new javax.swing.JLabel();
+        jLabelOriginCity = new javax.swing.JLabel();
+        jLabelDestCity = new javax.swing.JLabel();
+        jLabelOrderItem = new javax.swing.JLabel();
+        jTextFieldContractID = new javax.swing.JTextField();
+        jTextFieldOrderItem = new javax.swing.JTextField();
+        jButtonReset = new javax.swing.JButton();
+        jButtonCancel = new javax.swing.JButton();
+        jButtonSave = new javax.swing.JButton();
+        jComboBoxOriginCity = new javax.swing.JComboBox<>();
+        jComboBoxDestCity = new javax.swing.JComboBox<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Add a New Contract");
+
+        jLabelContractID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabelContractID.setText("Contract ID");
+
+        jLabelOriginCity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabelOriginCity.setText("Origin City");
+
+        jLabelDestCity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabelDestCity.setText("Destination City");
+
+        jLabelOrderItem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabelOrderItem.setText("Order Item");
+
+        jTextFieldContractID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jTextFieldOrderItem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
+        jButtonReset.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButtonReset.setText("Reset");
+
+        jButtonCancel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButtonCancel.setText("Cancel");
+
+        jButtonSave.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButtonSave.setText("Save");
+
+        jComboBoxOriginCity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboBoxOriginCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jComboBoxDestCity.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jComboBoxDestCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(95, 95, 95)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jButtonCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButtonReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(34, 34, 34))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabelContractID)
+                                    .addGap(69, 69, 69)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelOriginCity)
+                                .addGap(75, 75, 75)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabelDestCity)
+                            .addGap(34, 34, 34)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelOrderItem)
+                        .addGap(72, 72, 72)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldOrderItem, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jComboBoxDestCity, 0, 160, Short.MAX_VALUE)
+                        .addComponent(jComboBoxOriginCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldContractID)
+                        .addComponent(jButtonSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 571, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelContractID)
+                    .addComponent(jTextFieldContractID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelOriginCity)
+                    .addComponent(jComboBoxOriginCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelDestCity)
+                    .addComponent(jComboBoxDestCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelOrderItem)
+                    .addComponent(jTextFieldOrderItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonReset, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -44,5 +152,17 @@ public class NewContract extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCancel;
+    private javax.swing.JButton jButtonReset;
+    private javax.swing.JButton jButtonSave;
+    private javax.swing.JComboBox<String> jComboBoxDestCity;
+    private javax.swing.JComboBox<String> jComboBoxOriginCity;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelContractID;
+    private javax.swing.JLabel jLabelDestCity;
+    private javax.swing.JLabel jLabelOrderItem;
+    private javax.swing.JLabel jLabelOriginCity;
+    private javax.swing.JTextField jTextFieldContractID;
+    private javax.swing.JTextField jTextFieldOrderItem;
     // End of variables declaration//GEN-END:variables
 }

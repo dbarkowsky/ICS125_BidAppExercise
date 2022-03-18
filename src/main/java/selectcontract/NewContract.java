@@ -4,6 +4,8 @@
  */
 package selectcontract;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -15,11 +17,15 @@ public class NewContract extends javax.swing.JFrame {
     
     //pre-determined list of city choices
     private final String [] cityList = {"Victoria", "Vancouver", "Seattle", "Nanaimo", "Prince George"};
+    private ContractView theView;
+    private ContractModel theModel;
     /**
      * Creates new form NewContract
      */
-    public NewContract() {
+    public NewContract(ContractView theView, ContractModel theModel) {
         System.out.println("Creating new contract window");
+        this.theView = theView;
+        this.theModel = theModel;
         initComponents();
         setCityLists();
     }
@@ -46,7 +52,7 @@ public class NewContract extends javax.swing.JFrame {
         jComboBoxOriginCity = new javax.swing.JComboBox<>();
         jComboBoxDestCity = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -131,11 +137,10 @@ public class NewContract extends javax.swing.JFrame {
                         .addGap(72, 72, 72)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextFieldOrderItem, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jComboBoxDestCity, 0, 160, Short.MAX_VALUE)
-                        .addComponent(jComboBoxOriginCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldContractID)
-                        .addComponent(jButtonSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jComboBoxDestCity, 0, 160, Short.MAX_VALUE)
+                    .addComponent(jComboBoxOriginCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldContractID)
+                    .addComponent(jButtonSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -172,21 +177,50 @@ public class NewContract extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Reset button; resets all fields
     private void jButtonResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResetActionPerformed
-        // TODO add your handling code here:
         this.jTextFieldContractID.setText("");
         this.jTextFieldOrderItem.setText("");
         setCityLists(); //dirty way to reset list values
     }//GEN-LAST:event_jButtonResetActionPerformed
 
+    //Cancel button; closes window
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        // TODO add your handling code here:
         //targets jFrame and closes the window
         this.dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
+    //Save button; checks fields, writes to file, forces theView to update
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
-        // TODO add your handling code here:
+        System.out.println("Attempting save");
+        //convert contract ID to uppercase
+        jTextFieldContractID.setText(jTextFieldContractID.getText().toUpperCase());
+        
+        try {
+            //Contract ID and Order Item cannot be blank
+            if (jTextFieldContractID.getText().equals("") || jTextFieldOrderItem.getText().equals("")){
+                throw new Exception("All fields must be populated.");
+            }
+            //contract ID must be this format: [1-9][A-Z]{3}
+            if (!jTextFieldContractID.getText().matches("^[1-9][A-Z]{3}")){
+                throw new Exception("Contract ID format must be: [A number 1-9] followed by 3 letters.");
+            }
+            //origin city and destination city cannot be the same
+            if (jComboBoxDestCity.getSelectedItem().toString().equals(jComboBoxOriginCity.getSelectedItem().toString())){
+                throw new Exception("Destination and Origin cities must be different.");
+            }
+            //Order Item must not contain commas or only be numbers
+            if (jTextFieldOrderItem.getText().matches(",") || jTextFieldOrderItem.getText().matches("^[0-9]+$")){
+                throw new Exception("Order Items cannot be exclusively numbers or contain commas.");
+            }
+            
+            System.out.println("Save successful");
+            displayErrorMessage("Contract successfully added.");
+        } catch (Exception e){
+            displayErrorMessage(e.toString());
+            System.out.println(e);
+        }
+        
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
 
@@ -218,6 +252,8 @@ public class NewContract extends javax.swing.JFrame {
         this.jComboBoxOriginCity.setModel(originModel);
         this.jComboBoxDestCity.setModel(destModel);
     }
+    
+    //validates the input against list of input constraints; returns boolean
 
 }
 

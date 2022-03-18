@@ -20,6 +20,7 @@ class ContractModel {
     private ArrayList<Contract> theContractsAll;
     private int contractCounter; //for currently displayed contract, not total
     private SortedSet<String> originCityList;
+    protected String fileName;
     
     
     private static final int NUMBER_OF_CONTRACT_ATTRIBUTES = 4;
@@ -32,6 +33,7 @@ class ContractModel {
         theContracts = new ArrayList<Contract>();
         contractCounter = 0;
         originCityList = new TreeSet<>();
+        this.fileName = fileName;
         
         try {
             //wrap filereader in buffered reader

@@ -133,7 +133,7 @@ class ContractController {
     class NewContractListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
-            NewContract newContractView = new NewContract();
+            NewContract newContractView = new NewContract(theView, theModel);
             newContractView.setVisible(true);
         }
     }

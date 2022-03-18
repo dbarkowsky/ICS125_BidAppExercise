@@ -1,6 +1,10 @@
 4RDW,Victoria,Prince George,Flowers
 8EKD,Vancouver,Victoria,Vegetable
 3HQC,Seattle,Vancouver,Pharmaceutical
-4RDW,Victoria,Prince George,Flowers
-8EKD,Vancouver,Victoria,Vegetable
-3HQC,Seattle,Vancouver,Pharmaceutical
+4RDW,Victoria,Prince George,Stationary
+8ETE,Vancouver,Victoria,Cows
+3HTE,Seattle,Vancouver,Chickens
+4FDS,Nanaimo,Victoria,Plants
+6FDS,Vancouver,Victoria,Hedgehogs
+3REW,Victoria,Nanaimo,Hot Sauce
+9OLF,Nanaimo,Victoria,Rubix Cubes

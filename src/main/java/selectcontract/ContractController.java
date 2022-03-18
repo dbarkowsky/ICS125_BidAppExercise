@@ -135,6 +135,13 @@ class ContractController {
         public void actionPerformed(ActionEvent e){
             NewContract newContractView = new NewContract(theView, theModel);
             newContractView.setVisible(true);
+            
+            //refresh the display
+            setUpDisplay();
+            //set origin city list
+            theView.setOriginCityList(theModel.getOriginCityList());
+            //refresh # of # contracts line
+            theView.updateContractViewPanel(theModel.getCurrentContractNum(), theModel.getContractCount());
         }
     }
 }

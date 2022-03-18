@@ -6,6 +6,8 @@ package selectcontract;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -213,9 +215,36 @@ public class NewContract extends javax.swing.JFrame {
             if (jTextFieldOrderItem.getText().matches(",") || jTextFieldOrderItem.getText().matches("^[0-9]+$")){
                 throw new Exception("Order Items cannot be exclusively numbers or contain commas.");
             }
+            //Contract ID cannot already exist in file; check theModel.theContractsAll
             
-            System.out.println("Save successful");
+            //all checks passed? append to contracts file
+            try {
+                //create filewriter; boolean indicates append preference
+                System.out.println("Trying to write to file.");
+                FileWriter writeContracts = new FileWriter(theModel.fileName, true);
+                writeContracts.write("\n" +
+                                     jTextFieldContractID.getText() + "," +
+                                     jComboBoxOriginCity.getSelectedItem().toString() + "," +
+                                     jComboBoxDestCity.getSelectedItem().toString() + "," +
+                                     jTextFieldOrderItem.getText()); 
+                writeContracts.close();
+                System.out.println("Save successful");
+
+            } catch (IOException e) {
+                System.out.println("Writing new contract to file failed.");
+                displayErrorMessage("Failed to write contract to file.");
+            }
+            
+            //model can reload file
+            theModel.readContractsFile();
+            
+            //tell theView to update
+            
+            
             displayErrorMessage("Contract successfully added.");
+            
+            //close this window
+            this.dispose();
         } catch (Exception e){
             displayErrorMessage(e.toString());
             System.out.println(e);
@@ -252,8 +281,6 @@ public class NewContract extends javax.swing.JFrame {
         this.jComboBoxOriginCity.setModel(originModel);
         this.jComboBoxDestCity.setModel(destModel);
     }
-    
-    //validates the input against list of input constraints; returns boolean
 
 }
 

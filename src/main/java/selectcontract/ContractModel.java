@@ -17,7 +17,7 @@ import java.util.TreeSet;
  */
 class ContractModel {
     private ArrayList<Contract> theContracts;
-    private ArrayList<Contract> theContractsAll;
+    protected ArrayList<Contract> theContractsAll;
     private int contractCounter; //for currently displayed contract, not total
     private SortedSet<String> originCityList;
     protected String fileName;
@@ -30,10 +30,18 @@ class ContractModel {
     private static final int INDEX_OF_ORDER_ID = 3;
     
     ContractModel(String fileName){
+        
+
+        this.fileName = fileName;
+        
+        readContractsFile();
+    }
+    
+    protected void readContractsFile(){
+        //Clear existing ArrayList; used when adding contract and reloading file
         theContracts = new ArrayList<Contract>();
         contractCounter = 0;
         originCityList = new TreeSet<>();
-        this.fileName = fileName;
         
         try {
             //wrap filereader in buffered reader
@@ -67,7 +75,6 @@ class ContractModel {
             System.out.println(ex.getMessage());
         }
     }
-    
     
     boolean foundContracts(){
         if (theContracts.size() > 0)

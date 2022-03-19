@@ -368,5 +368,6 @@ public class ContractView extends javax.swing.JFrame {
             jPrevButton.setEnabled(true);
             jNextButton.setEnabled(true);
         }       
+        System.out.println("View updated contract view panel.");
     }
 }

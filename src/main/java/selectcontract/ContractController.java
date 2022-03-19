@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import static java.lang.Thread.sleep;
 
 /**
  *
@@ -47,11 +48,13 @@ class ContractController {
                 theView.setOriginCity("???");
                 theView.setOrderItem("???");
             }
+            System.out.println("Controller setUpDisplay.");
         } catch (Error ex){
             System.out.println(ex);
             theView.displayErrorMessage("Error: There was a problem setting the contract.\n"
                     + "                 Contract number: " + theModel.getCurrentContractNum());
         }
+        
     }
     
     //Inner Classes
@@ -126,22 +129,27 @@ class ContractController {
                 theView.displayErrorMessage("Error: Could not bid on this contract.");
             }
             
-            setUpDisplay();
         }
     }
     
     class NewContractListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
-            NewContract newContractView = new NewContract(theView, theModel);
+            
+            NewContract newContractView = new NewContract(theView, true, theModel.fileName);
             newContractView.setVisible(true);
+               
+            System.out.println("Past save");
+            
+            //model reloads file
+            theModel.readContractsFile();
+
+            //set origin city list
+            theView.setOriginCityList(theModel.getOriginCityList());
             
             //refresh the display
             setUpDisplay();
-            //set origin city list
-            theView.setOriginCityList(theModel.getOriginCityList());
-            //refresh # of # contracts line
-            theView.updateContractViewPanel(theModel.getCurrentContractNum(), theModel.getContractCount());
+            
         }
     }
 }

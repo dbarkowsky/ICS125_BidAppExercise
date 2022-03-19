@@ -4,30 +4,27 @@
  */
 package selectcontract;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Dylan
  */
-public class NewContract extends javax.swing.JFrame {
+public class NewContract extends JDialog {
     
     //pre-determined list of city choices
     private final String [] cityList = {"Victoria", "Vancouver", "Seattle", "Nanaimo", "Prince George"};
-    private ContractView theView;
-    private ContractModel theModel;
-    /**
+    private String contractFilename;    /**
      * Creates new form NewContract
      */
-    public NewContract(ContractView theView, ContractModel theModel) {
+    public NewContract(ContractView theView, boolean modal, String contractFilename) {
+        super(theView, modal);
         System.out.println("Creating new contract window");
-        this.theView = theView;
-        this.theModel = theModel;
+        this.contractFilename = contractFilename;
         initComponents();
         setCityLists();
     }
@@ -221,7 +218,7 @@ public class NewContract extends javax.swing.JFrame {
             try {
                 //create filewriter; boolean indicates append preference
                 System.out.println("Trying to write to file.");
-                FileWriter writeContracts = new FileWriter(theModel.fileName, true);
+                FileWriter writeContracts = new FileWriter(contractFilename, true);
                 writeContracts.write("\n" +
                                      jTextFieldContractID.getText() + "," +
                                      jComboBoxOriginCity.getSelectedItem().toString() + "," +
@@ -234,13 +231,7 @@ public class NewContract extends javax.swing.JFrame {
                 System.out.println("Writing new contract to file failed.");
                 displayErrorMessage("Failed to write contract to file.");
             }
-            
-            //model can reload file
-            theModel.readContractsFile();
-            
-            //tell theView to update
-            
-            
+          
             displayErrorMessage("Contract successfully added.");
             
             //close this window

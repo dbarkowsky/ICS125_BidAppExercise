@@ -70,7 +70,10 @@ class ContractModel {
             originCityList.add("All");
             //copy theContracts to theContractsAll
             theContractsAll = new ArrayList<>(theContracts);
+            //reset the cities dropdown list
+            updateContractList("All");
             fileReader.close();
+            System.out.println("Model reloaded file.");
         } catch (IOException ex){
             System.out.println(ex.getMessage());
         }

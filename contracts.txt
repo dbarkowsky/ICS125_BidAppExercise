@@ -1,8 +1,7 @@
 4RDW,Victoria,Prince George,Flowers
 8EKD,Vancouver,Victoria,Vegetable
 3HQC,Seattle,Vancouver,Pharmaceutical
-4RDW,Victoria,Prince George,Stationary
-4FDS,Seattle,Victoria,fdsf
-4REW,Vancouver,Victoria,dsfs
-3DCS,Seattle,Victoria,sad
-2ADS,Seattle,Victoria,Cats
+5SSW,Victoria,Prince George,Stationary
+3HQD,Vancouver,Victoria,Puppies
+3DWW,Prince George,Victoria,Good Stuff!
+9UIO,Seattle,Prince George,Rare Minerals

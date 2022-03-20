@@ -49,6 +49,7 @@ public class ContractView extends javax.swing.JFrame {
         jPrevButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
+        jMenuItemQuit = new javax.swing.JMenuItem();
         jMenuEdit = new javax.swing.JMenu();
         jMenuNewContract = new javax.swing.JMenuItem();
 
@@ -235,6 +236,10 @@ public class ContractView extends javax.swing.JFrame {
         );
 
         jMenuFile.setText("File");
+
+        jMenuItemQuit.setText("Quit");
+        jMenuFile.add(jMenuItemQuit);
+
         jMenuBar1.add(jMenuFile);
 
         jMenuEdit.setText("Edit");
@@ -291,6 +296,7 @@ public class ContractView extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuEdit;
     private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenuItem jMenuItemQuit;
     private javax.swing.JMenuItem jMenuNewContract;
     private javax.swing.JButton jNextButton;
     private javax.swing.JPanel jPanel1;
@@ -318,6 +324,10 @@ public class ContractView extends javax.swing.JFrame {
     
     void addNewContractListener(ActionListener listenForNewContract){
         jMenuNewContract.addActionListener(listenForNewContract);
+    }
+    
+    void addQuitListener(ActionListener listenForQuit){
+        jMenuItemQuit.addActionListener(listenForQuit);
     }
     
     // Display error message

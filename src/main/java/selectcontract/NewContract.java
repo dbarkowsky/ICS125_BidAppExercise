@@ -4,8 +4,11 @@
  */
 package selectcontract;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -15,6 +18,12 @@ import javax.swing.JOptionPane;
  * @author Dylan
  */
 public class NewContract extends JDialog {
+    
+    private static final int NUMBER_OF_CONTRACT_ATTRIBUTES = 4;
+    private static final int INDEX_OF_CONTRACT_ID = 0;
+    private static final int INDEX_OF_ORIGIN_CITY = 1;
+    private static final int INDEX_OF_DEST_CITY = 2;
+    private static final int INDEX_OF_ORDER_ID = 3;
     
     //pre-determined list of city choices
     private final String [] cityList = {"Victoria", "Vancouver", "Seattle", "Nanaimo", "Prince George"};
@@ -70,6 +79,7 @@ public class NewContract extends JDialog {
         jLabelOrderItem.setText("Order Item");
 
         jTextFieldContractID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextFieldContractID.setToolTipText("Required format: #AAA");
 
         jTextFieldOrderItem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -209,10 +219,38 @@ public class NewContract extends JDialog {
                 throw new Exception("Destination and Origin cities must be different.");
             }
             //Order Item must not contain commas or only be numbers
-            if (jTextFieldOrderItem.getText().matches(",") || jTextFieldOrderItem.getText().matches("^[0-9]+$")){
+            if (jTextFieldOrderItem.getText().contains(",") || jTextFieldOrderItem.getText().matches("^[0-9]+$")){
                 throw new Exception("Order Items cannot be exclusively numbers or contain commas.");
             }
             //Contract ID cannot already exist in file; check theModel.theContractsAll
+            //try to read file and get IDs
+            ArrayList<String> contractIDs = new ArrayList<String>();
+            try {
+               
+                //wrap filereader in buffered reader
+                FileReader fileReader = new FileReader(contractFilename);
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+                String line;
+
+
+                //while the next line of the file exists
+                while((line = bufferedReader.readLine()) != null){
+                    //break it into an array, assign values
+                    String [] tokens = line.split(",", NUMBER_OF_CONTRACT_ATTRIBUTES);
+                    String contractID = tokens[INDEX_OF_CONTRACT_ID];
+
+                    //add new contract to array list
+                    contractIDs.add(contractID);
+                }
+                fileReader.close();
+            } catch (IOException e){
+                System.out.println(e.getMessage());
+            }
+            
+            //compare entered ID with existing IDs
+            if (contractIDs.contains(jTextFieldContractID.getText())){
+                throw new Exception("This ID already exists in the contracts file.");
+            }
             
             //all checks passed? append to contracts file
             try {

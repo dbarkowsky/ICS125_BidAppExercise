@@ -28,6 +28,7 @@ class ContractController {
         this.theView.addNextListener(new NextButtonListener());
         this.theView.addComboBoxListener(new ComboListener());
         this.theView.addNewContractListener(new NewContractListener());
+        this.theView.addQuitListener(new QuitListener());
         
         theView.setOriginCityList(theModel.getOriginCityList());
         setUpDisplay();
@@ -150,6 +151,13 @@ class ContractController {
             //refresh the display
             setUpDisplay();
             
+        }
+    }
+    
+    class QuitListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e){
+            System.exit(0);
         }
     }
 }

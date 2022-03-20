@@ -19,10 +19,12 @@ class ContractController {
     private ContractView theView;
     private ContractModel theModel;
     
+    //Constructor: takes the view and model components
     ContractController(ContractView theView, ContractModel theModel) {
         this.theView = theView;
         this.theModel = theModel;
         
+        //add all the action listeners
         this.theView.addPrevListener(new PrevButtonListener());
         this.theView.addBidListener(new BidButtonListener());
         this.theView.addNextListener(new NextButtonListener());
@@ -30,10 +32,15 @@ class ContractController {
         this.theView.addNewContractListener(new NewContractListener());
         this.theView.addQuitListener(new QuitListener());
         
+        //pass city list to theView
         theView.setOriginCityList(theModel.getOriginCityList());
+        
+        //populate/refresh window
         setUpDisplay();
     }
     
+    //sets all the fields with their proper values after contract changes
+    //often used as a "refresh"
     private void setUpDisplay(){
         try {
             if (theModel.foundContracts()){
@@ -59,6 +66,7 @@ class ContractController {
     }
     
     //Inner Classes
+    //Action Listener implementations go here
     class PrevButtonListener implements ActionListener{
         
         @Override

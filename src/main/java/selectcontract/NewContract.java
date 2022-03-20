@@ -242,6 +242,7 @@ public class NewContract extends JDialog {
                     //add new contract to array list
                     contractIDs.add(contractID);
                 }
+                //close filereader
                 fileReader.close();
             } catch (IOException e){
                 System.out.println(e.getMessage());
@@ -257,6 +258,7 @@ public class NewContract extends JDialog {
                 //create filewriter; boolean indicates append preference
                 System.out.println("Trying to write to file.");
                 FileWriter writeContracts = new FileWriter(contractFilename, true);
+                //write data to file
                 writeContracts.write("\n" +
                                      jTextFieldContractID.getText() + "," +
                                      jComboBoxOriginCity.getSelectedItem().toString() + "," +
@@ -270,6 +272,7 @@ public class NewContract extends JDialog {
                 displayErrorMessage("Failed to write contract to file.");
             }
           
+            //not really an error, but easy dialog access
             displayErrorMessage("Contract successfully added.");
             
             //close this window

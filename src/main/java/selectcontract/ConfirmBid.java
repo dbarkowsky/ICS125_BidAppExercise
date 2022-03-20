@@ -28,6 +28,7 @@ public class ConfirmBid extends javax.swing.JDialog {
      * Creates new form ConfirmBid
      */
     public ConfirmBid(java.awt.Frame parent, boolean modal, Contract theContract) {
+        //modal boolean determines whether or not process waits for this window to finish
         super(parent, modal);
         initComponents();
         
@@ -209,7 +210,9 @@ public class ConfirmBid extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
+    //Action when save button is clicked
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
+        //Get values from visual elements
         System.out.println(jSpinner1.getValue());
         System.out.println(jSpinner1.getValue().toString());
         System.out.println(Integer.parseInt(jSpinner1.getValue().toString()));
@@ -240,6 +243,7 @@ public class ConfirmBid extends javax.swing.JDialog {
                     FileWriter filewriter = new FileWriter(contractRecords, true);
                     BufferedWriter output = new BufferedWriter(filewriter);
 
+                    //write to file
                     output.write(outputString);
                     output.newLine();
                     output.close();
@@ -257,6 +261,7 @@ public class ConfirmBid extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButtonSaveActionPerformed
 
+    //checks if string is only characters
     private boolean isAllCharacters(String name){
         boolean bool = true;
         for(char character: name.toCharArray()){
@@ -266,6 +271,7 @@ public class ConfirmBid extends javax.swing.JDialog {
         return bool;
     }
     
+    //checks if string is only numbers
     private boolean isNumber(String number){
         if(number != null && number.matches("[0-9]*"))
             return true;

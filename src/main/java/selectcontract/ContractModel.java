@@ -86,6 +86,7 @@ class ContractModel {
             return false;
     }
     
+    //returns Contract object
     public Contract getTheContract(){
         return theContracts.get(contractCounter);
     }
@@ -94,6 +95,7 @@ class ContractModel {
         return theContracts.size();
     }
     
+    //returns current position in contract list
     public int getCurrentContractNum(){
         return contractCounter;
     }

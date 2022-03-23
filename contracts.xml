@@ -1,0 +1,15 @@
+<?xml version = "1.0"?>
+<contracts>
+    <contract>
+        <contractID>4REW</contractID>
+        <originCity>Victoria</originCity>
+        <destCity>Prince George</destCity>
+        <orderItem>Cats</orderItem>
+    </contract>
+    <contract>
+        <contractID>5SEF</contractID>
+        <originCity>Vancouver</originCity>
+        <destCity>Nanaimao</destCity>
+        <orderItem>Dogs</orderItem>
+    </contract>
+</contracts>

@@ -13,8 +13,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+//XML imports
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
+import org.xml.sax.SAXException;
+//JSON imports
+//import org.json.simple.*;
 
 /**
  *
@@ -25,7 +33,8 @@ class ContractModel {
     protected ArrayList<Contract> theContractsAll;
     private int contractCounter; //for currently displayed contract, not total
     private SortedSet<String> originCityList;
-    protected String fileName;
+    protected String contractsFile;
+    protected String bidsFile;
     
     
     private static final int NUMBER_OF_CONTRACT_ATTRIBUTES = 4;
@@ -34,12 +43,13 @@ class ContractModel {
     private static final int INDEX_OF_DEST_CITY = 2;
     private static final int INDEX_OF_ORDER_ID = 3;
     
-    ContractModel(String fileName){
+    ContractModel(String contractsFile, String bidsFile){
         
 
-        this.fileName = fileName;
+        this.contractsFile = contractsFile;
+        this.bidsFile = bidsFile;
         
-        readContractsFile();
+        readContractsFileXML();
     }
     
     protected void readContractsFile(){
@@ -50,7 +60,7 @@ class ContractModel {
         
         try {
             //wrap filereader in buffered reader
-            FileReader fileReader = new FileReader(fileName);
+            FileReader fileReader = new FileReader(contractsFile);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
             
@@ -82,6 +92,70 @@ class ContractModel {
         } catch (IOException ex){
             System.out.println(ex.getMessage());
         }
+    }
+    
+    protected void readContractsFileXML(){
+        //Clear existing ArrayList; used when adding contract and reloading file
+        theContracts = new ArrayList<Contract>();
+        contractCounter = 0;
+        originCityList = new TreeSet<>();
+             
+        try {
+            //create filewriter; boolean indicates append preference
+            System.out.println("Trying to write to XML file.");
+            File fileToWrite = new File(this.contractsFile);
+            
+            //Create objects for XML building
+            DocumentBuilderFactory xmlFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder xmlBuilder = xmlFactory.newDocumentBuilder();
+            Document xmlFile = xmlBuilder.parse(fileToWrite);
+            xmlFile.getDocumentElement().normalize();
+            
+            //Create list of xml nodes
+            NodeList nodes = xmlFile.getElementsByTagName("contract");
+            
+            for (int i = 0; i < nodes.getLength(); i++){
+                Node newNode = nodes.item(i);
+                System.out.println("Current element: " + newNode.getNodeName());
+                
+                if (newNode.getNodeType() == Node.ELEMENT_NODE){
+                    Element eElement = (Element) newNode;
+                    
+                    String contractID = eElement.getElementsByTagName("contractID").item(0).getTextContent();
+                    String originCity = eElement.getElementsByTagName("originCity").item(0).getTextContent();
+                    String destCity = eElement.getElementsByTagName("destCity").item(0).getTextContent();
+                    String orderItem = eElement.getElementsByTagName("orderItem").item(0).getTextContent();
+                
+                    Contract dataContract = new Contract(contractID, originCity, destCity, orderItem);
+
+                    //add new contract to array list
+                    theContracts.add(dataContract);
+                    //add originCity to originCityList combo box
+                    originCityList.add(originCity);
+                    
+                    
+                    System.out.println("Currently reading: " + contractID + "," + 
+                                                               originCity + "," +
+                                                               destCity + "," +
+                                                               orderItem);
+                }
+            } 
+            
+            //add "All" to the combo box
+            originCityList.add("All");
+            //copy theContracts to theContractsAll
+            theContractsAll = new ArrayList<>(theContracts);
+            //reset the cities dropdown list
+            updateContractList("All");
+            
+        } catch (IOException e) {
+            
+        } catch (SAXException ex) {
+            Logger.getLogger(ContractModel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(ContractModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     boolean foundContracts(){
@@ -133,24 +207,34 @@ class ContractModel {
         contractCounter = 0;
     }
     
-    public void writeNewContract(String contractID, String originCity, String destCity, String orderItem){
-        //all checks passed? append to contracts file
-            try {
-                //create filewriter; boolean indicates append preference
-                System.out.println("Trying to write to file.");
-                FileWriter writeContracts = new FileWriter(this.fileName, true);
-                //write data to file
-                writeContracts.write("\n" +
-                                     contractID + "," +
-                                     originCity + "," +
-                                     destCity + "," +
-                                     orderItem); 
-                writeContracts.close();
-                System.out.println("Save successful");
+    public void writeNewContract(String contractID, String originCity, String destCity, String orderItem, JDialog jDialog){
 
-            } catch (IOException e) {
-                System.out.println("Writing new contract to file failed.");
-            }
+        try {
+            //create filewriter; boolean indicates append preference
+            System.out.println("Trying to write to file.");
+            FileWriter writeContracts = new FileWriter(this.contractsFile, true);
+            //write data to file
+            writeContracts.write("\n" +
+                                 contractID + "," +
+                                 originCity + "," +
+                                 destCity + "," +
+                                 orderItem); 
+            writeContracts.close();
+            System.out.println("Save successful");
+            JOptionPane.showMessageDialog(jDialog, "File saved successfully.");
+        } catch (IOException e) {
+            System.out.println("Writing new contract to file failed.");
+            JOptionPane.showMessageDialog(jDialog, "File could not be written to. Check file permissions.");
+        }
+    }
+    
+    public void writeNewContractXML(String contractID, String originCity, String destCity, String orderItem, JDialog jDialog){
+
+        //create filewriter; boolean indicates append preference
+        System.out.println("Trying to write to XML file.");
+        File fileToWrite = new File(this.contractsFile);
+        System.out.println("Save successful");
+        JOptionPane.showMessageDialog(jDialog, "File saved successfully.");
     }
     
     public void writeNewBid(String name, String contractID, String bidAmount, String timestamp, JDialog jDialog){
@@ -163,7 +247,7 @@ class ContractModel {
         //try to write to file, otherwise print error message
         try {
             //set up file writer
-            File contractRecords = new File("./MyContractBids.txt");
+            File contractRecords = new File(this.bidsFile);
             FileWriter filewriter = new FileWriter(contractRecords, true);
             BufferedWriter output = new BufferedWriter(filewriter);
 
@@ -174,7 +258,7 @@ class ContractModel {
             JOptionPane.showMessageDialog(jDialog, "Your name as " + name + " with bid amount " + bidAmount + " has been successfully saved.");
         } catch (IOException ex) {
             System.out.println("Error: " + ex);
-            JOptionPane.showMessageDialog(jDialog, "File could not be created. Check file permissions.");
+            JOptionPane.showMessageDialog(jDialog, "File could not be written to. Check file permissions.");
         }
     }
 }

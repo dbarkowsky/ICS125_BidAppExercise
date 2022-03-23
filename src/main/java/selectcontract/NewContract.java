@@ -263,12 +263,7 @@ public class NewContract extends JDialog {
             this.contractID = jTextFieldContractID.getText();
             this.originCity = jComboBoxOriginCity.getSelectedItem().toString();
             this.destCity = jComboBoxDestCity.getSelectedItem().toString();
-            this.orderItem = jTextFieldOrderItem.getText();
-            
-            
-          
-            //not really an error, but easy dialog access
-            displayErrorMessage("Contract successfully added.");
+            this.orderItem = jTextFieldOrderItem.getText();           
             
             //close this window
             this.dispose();

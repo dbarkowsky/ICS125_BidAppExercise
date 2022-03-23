@@ -146,16 +146,16 @@ class ContractController {
         @Override
         public void actionPerformed(ActionEvent e){
             
-            NewContract newContractView = new NewContract(theView, true, theModel.fileName);
+            NewContract newContractView = new NewContract(theView, true, theModel.contractsFile);
             newContractView.setVisible(true);
                
             //pass values to theModel for saving
-            theModel.writeNewContract(newContractView.contractID, newContractView.originCity, newContractView.destCity, newContractView.orderItem);
+            theModel.writeNewContractXML(newContractView.contractID, newContractView.originCity, newContractView.destCity, newContractView.orderItem, newContractView);
             
             System.out.println("Past save");
             
             //model reloads file
-            theModel.readContractsFile();
+            theModel.readContractsFileXML();
 
             //set origin city list
             theView.setOriginCityList(theModel.getOriginCityList());

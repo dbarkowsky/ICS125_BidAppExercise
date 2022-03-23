@@ -5,11 +5,16 @@
 package selectcontract;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -126,5 +131,50 @@ class ContractModel {
             theContracts.removeIf(s -> !s.contains(city));
         }
         contractCounter = 0;
+    }
+    
+    public void writeNewContract(String contractID, String originCity, String destCity, String orderItem){
+        //all checks passed? append to contracts file
+            try {
+                //create filewriter; boolean indicates append preference
+                System.out.println("Trying to write to file.");
+                FileWriter writeContracts = new FileWriter(this.fileName, true);
+                //write data to file
+                writeContracts.write("\n" +
+                                     contractID + "," +
+                                     originCity + "," +
+                                     destCity + "," +
+                                     orderItem); 
+                writeContracts.close();
+                System.out.println("Save successful");
+
+            } catch (IOException e) {
+                System.out.println("Writing new contract to file failed.");
+            }
+    }
+    
+    public void writeNewBid(String name, String contractID, String bidAmount, String timestamp, JDialog jDialog){
+        
+        String outputString =   name + "," +
+                                contractID + "," +
+                                bidAmount + "," +
+                                timestamp;
+
+        //try to write to file, otherwise print error message
+        try {
+            //set up file writer
+            File contractRecords = new File("./MyContractBids.txt");
+            FileWriter filewriter = new FileWriter(contractRecords, true);
+            BufferedWriter output = new BufferedWriter(filewriter);
+
+            //write to file
+            output.write(outputString);
+            output.newLine();
+            output.close();
+            JOptionPane.showMessageDialog(jDialog, "Your name as " + name + " with bid amount " + bidAmount + " has been successfully saved.");
+        } catch (IOException ex) {
+            System.out.println("Error: " + ex);
+            JOptionPane.showMessageDialog(jDialog, "File could not be created. Check file permissions.");
+        }
     }
 }

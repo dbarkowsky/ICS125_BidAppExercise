@@ -23,6 +23,11 @@ import javax.swing.SpinnerNumberModel;
  * @author Dylan
  */
 public class ConfirmBid extends javax.swing.JDialog {
+    
+    protected String name;
+    protected String contractID;
+    protected String bidAmount;
+    protected String timestamp;
 
     /**
      * Creates new form ConfirmBid
@@ -230,28 +235,14 @@ public class ConfirmBid extends javax.swing.JDialog {
                 //create date and format
                 ZonedDateTime currentDate = ZonedDateTime.now();
                 DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMMM dd yyyy HH:mmz");
+                
+                this.name = name;
+                this.contractID = jLabelContractID.getText();
+                this.bidAmount = currency.format(bidAmount);
+                this.timestamp = currentDate.format(dateFormat);
+                
+                this.dispose();
 
-                String outputString =   name + ", " +
-                                        jLabelContractID.getText() + ", " +
-                                        currency.format(bidAmount) + ", " + 
-                                        currentDate.format(dateFormat);
-
-                //try to write to file, otherwise print error message
-                try {
-                    //set up file writer
-                    File contractRecords = new File("./MyContractBids.txt");
-                    FileWriter filewriter = new FileWriter(contractRecords, true);
-                    BufferedWriter output = new BufferedWriter(filewriter);
-
-                    //write to file
-                    output.write(outputString);
-                    output.newLine();
-                    output.close();
-                    JOptionPane.showMessageDialog(jDialog, "Your name as " + name + " with bid amount " + currency.format(bidAmount) + " has been successfully saved.");
-                } catch (IOException ex) {
-                    System.out.println("Error: " + ex);
-                    JOptionPane.showMessageDialog(jDialog, "File could not be created. Check file permissions.");
-                }
             } else {
                 JOptionPane.showMessageDialog(jDialog, "Your bid must be only numbers in multiples of $50.");
             }

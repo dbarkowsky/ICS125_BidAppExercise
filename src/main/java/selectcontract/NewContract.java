@@ -27,7 +27,13 @@ public class NewContract extends JDialog {
     
     //pre-determined list of city choices
     private final String [] cityList = {"Victoria", "Vancouver", "Seattle", "Nanaimo", "Prince George"};
-    private String contractFilename;    /**
+    private String contractFilename;    
+    protected String contractID;
+    protected String destCity;
+    protected String originCity;
+    protected String orderItem;
+    /**
+     *
      * Creates new form NewContract
      */
     public NewContract(ContractView theView, boolean modal, String contractFilename) {
@@ -253,24 +259,13 @@ public class NewContract extends JDialog {
                 throw new Exception("This ID already exists in the contracts file.");
             }
             
-            //all checks passed? append to contracts file
-            try {
-                //create filewriter; boolean indicates append preference
-                System.out.println("Trying to write to file.");
-                FileWriter writeContracts = new FileWriter(contractFilename, true);
-                //write data to file
-                writeContracts.write("\n" +
-                                     jTextFieldContractID.getText() + "," +
-                                     jComboBoxOriginCity.getSelectedItem().toString() + "," +
-                                     jComboBoxDestCity.getSelectedItem().toString() + "," +
-                                     jTextFieldOrderItem.getText()); 
-                writeContracts.close();
-                System.out.println("Save successful");
-
-            } catch (IOException e) {
-                System.out.println("Writing new contract to file failed.");
-                displayErrorMessage("Failed to write contract to file.");
-            }
+            //all checks passed? assign to variables so they can get passed to theModel
+            this.contractID = jTextFieldContractID.getText();
+            this.originCity = jComboBoxOriginCity.getSelectedItem().toString();
+            this.destCity = jComboBoxDestCity.getSelectedItem().toString();
+            this.orderItem = jTextFieldOrderItem.getText();
+            
+            
           
             //not really an error, but easy dialog access
             displayErrorMessage("Contract successfully added.");

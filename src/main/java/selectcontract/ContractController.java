@@ -133,6 +133,7 @@ class ContractController {
                 //centres dialogue on screen
                 cb.setLocationRelativeTo(null);
                 cb.setVisible(true);
+                theModel.writeNewBid(cb.name, cb.contractID, cb.bidAmount, cb.timestamp, cb);
             } catch (Exception ex){
                 System.out.println(ex);
                 theView.displayErrorMessage("Error: Could not bid on this contract.");
@@ -148,6 +149,9 @@ class ContractController {
             NewContract newContractView = new NewContract(theView, true, theModel.fileName);
             newContractView.setVisible(true);
                
+            //pass values to theModel for saving
+            theModel.writeNewContract(newContractView.contractID, newContractView.originCity, newContractView.destCity, newContractView.orderItem);
+            
             System.out.println("Past save");
             
             //model reloads file

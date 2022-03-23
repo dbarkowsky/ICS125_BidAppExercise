@@ -229,12 +229,18 @@ class ContractModel {
     }
     
     public void writeNewContractXML(String contractID, String originCity, String destCity, String orderItem, JDialog jDialog){
-
-        //create filewriter; boolean indicates append preference
+       
         System.out.println("Trying to write to XML file.");
-        File fileToWrite = new File(this.contractsFile);
-        System.out.println("Save successful");
-        JOptionPane.showMessageDialog(jDialog, "File saved successfully.");
+        try {
+            //create filewriter; boolean indicates append preference
+            FileWriter fileToWrite = new FileWriter(new File(this.contractsFile));
+            
+            System.out.println("Save successful");
+            JOptionPane.showMessageDialog(jDialog, "File saved successfully.");
+        } catch (IOException ex) {
+            Logger.getLogger(ContractModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     public void writeNewBid(String name, String contractID, String bidAmount, String timestamp, JDialog jDialog){

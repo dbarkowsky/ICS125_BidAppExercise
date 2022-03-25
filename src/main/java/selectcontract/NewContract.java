@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -32,6 +33,8 @@ public class NewContract extends JDialog {
     protected String destCity;
     protected String originCity;
     protected String orderItem;
+    protected ArrayList<String> listContractID = new ArrayList<String>();
+    protected boolean passedAllChecks;
     /**
      *
      * Creates new form NewContract
@@ -40,6 +43,15 @@ public class NewContract extends JDialog {
         super(theView, modal);
         System.out.println("Creating new contract window");
         this.contractFilename = contractFilename;
+        initComponents();
+        setCityLists();
+    }
+    
+    public NewContract(ContractView theView, boolean modal, ArrayList contractIDs) {
+        super(theView, modal);
+        System.out.println("Creating new contract window");
+        this.contractFilename = contractFilename;
+        this.listContractID = contractIDs;
         initComponents();
         setCityLists();
     }
@@ -208,6 +220,8 @@ public class NewContract extends JDialog {
     //Save button; checks fields, writes to file, forces theView to update
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         System.out.println("Attempting save");
+        passedAllChecks = false;
+        
         //convert contract ID to uppercase
         jTextFieldContractID.setText(jTextFieldContractID.getText().toUpperCase());
         
@@ -228,43 +242,20 @@ public class NewContract extends JDialog {
             if (jTextFieldOrderItem.getText().contains(",") || jTextFieldOrderItem.getText().matches("^[0-9]+$")){
                 throw new Exception("Order Items cannot be exclusively numbers or contain commas.");
             }
-            //Contract ID cannot already exist in file; check theModel.theContractsAll
-            //try to read file and get IDs
-            ArrayList<String> contractIDs = new ArrayList<String>();
-            try {
-               
-                //wrap filereader in buffered reader
-                FileReader fileReader = new FileReader(contractFilename);
-                BufferedReader bufferedReader = new BufferedReader(fileReader);
-                String line;
-
-
-                //while the next line of the file exists
-                while((line = bufferedReader.readLine()) != null){
-                    //break it into an array, assign values
-                    String [] tokens = line.split(",", NUMBER_OF_CONTRACT_ATTRIBUTES);
-                    String contractID = tokens[INDEX_OF_CONTRACT_ID];
-
-                    //add new contract to array list
-                    contractIDs.add(contractID);
-                }
-                //close filereader
-                fileReader.close();
-            } catch (IOException e){
-                System.out.println(e.getMessage());
-            }
-            
+                    
             //compare entered ID with existing IDs
-            if (contractIDs.contains(jTextFieldContractID.getText())){
+            System.out.println("Checking input against ID list");
+            if (listContractID.contains(jTextFieldContractID.getText())){
                 throw new Exception("This ID already exists in the contracts file.");
             }
-            
+
             //all checks passed? assign to variables so they can get passed to theModel
             this.contractID = jTextFieldContractID.getText();
             this.originCity = jComboBoxOriginCity.getSelectedItem().toString();
             this.destCity = jComboBoxDestCity.getSelectedItem().toString();
             this.orderItem = jTextFieldOrderItem.getText();           
-            
+            //and mark boolean as successful
+            passedAllChecks = true;
             //close this window
             this.dispose();
         } catch (Exception e){

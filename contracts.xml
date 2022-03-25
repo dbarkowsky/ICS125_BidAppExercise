@@ -1,15 +1,14 @@
-<?xml version = "1.0"?>
-<contracts>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><contracts>
     <contract>
-        <contractID>4REW</contractID>
+        <contractID>3SFD</contractID>
         <originCity>Victoria</originCity>
-        <destCity>Prince George</destCity>
-        <orderItem>Cats</orderItem>
+        <destCity>Vancouver</destCity>
+        <orderItem>dsfs</orderItem>
     </contract>
     <contract>
-        <contractID>5SEF</contractID>
-        <originCity>Vancouver</originCity>
-        <destCity>Nanaimao</destCity>
-        <orderItem>Dogs</orderItem>
+        <contractID>3FSF</contractID>
+        <originCity>Prince George</originCity>
+        <destCity>Victoria</destCity>
+        <orderItem>sdfsd</orderItem>
     </contract>
-</contracts>
+<contract><contractID>2FDS</contractID><originCity>Victoria</originCity><destCity>Seattle</destCity><orderItem>Houses</orderItem></contract><contract><contractID>6GFD</contractID><originCity>Seattle</originCity><destCity>Victoria</destCity><orderItem>sfsfs</orderItem></contract><contract><contractID>3FDS</contractID><originCity>Vancouver</originCity><destCity>Victoria</destCity><orderItem>sfs</orderItem></contract></contracts>

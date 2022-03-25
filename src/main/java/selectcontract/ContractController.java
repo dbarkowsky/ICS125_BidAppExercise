@@ -145,14 +145,19 @@ class ContractController {
     class NewContractListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
-            
-            NewContract newContractView = new NewContract(theView, true, theModel.contractsFile);
+            //testing values
+            System.out.println(theModel.listContractID.toString());
+            NewContract newContractView = new NewContract(theView, true, theModel.listContractID);
             newContractView.setVisible(true);
                
-            //pass values to theModel for saving
-            theModel.writeNewContractXML(newContractView.contractID, newContractView.originCity, newContractView.destCity, newContractView.orderItem, newContractView);
-            
-            System.out.println("Past save");
+            if(newContractView.passedAllChecks){
+                //pass values to theModel for saving
+                theModel.writeNewContractXML(newContractView.contractID, newContractView.originCity, newContractView.destCity, newContractView.orderItem, newContractView);
+
+                System.out.println("Past save");
+                //model rebuilds XML document
+                theModel.xmlContracts = theModel.createXMLFile(theModel.contractsFile);
+            }
             
             //model reloads file
             theModel.readContractsFileXML();

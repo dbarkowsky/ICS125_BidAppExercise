@@ -51,7 +51,6 @@ public class ConfirmBid extends javax.swing.JDialog {
         
         SpinnerModel numModel = new SpinnerNumberModel(startValue, minValue, maxValue, stepValue);
         jSpinner1.setModel(numModel);
-        String optionsFileName = System.getProperty("user.dir") + "\\src\\selectcontract\\output_bids.txt";
     }
 
     /**

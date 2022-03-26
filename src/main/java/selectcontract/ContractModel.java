@@ -7,10 +7,12 @@ package selectcontract;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.logging.Level;
@@ -29,7 +31,9 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.xml.sax.SAXException;
 //JSON imports
-//import org.json.simple.*;
+import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -44,6 +48,7 @@ class ContractModel {
     protected String contractsFile;
     protected String bidsFile;
     protected Document xmlContracts;
+    protected JSONObject jsonBids;
     
     
     private static final int NUMBER_OF_CONTRACT_ATTRIBUTES = 4;
@@ -58,7 +63,40 @@ class ContractModel {
         this.contractsFile = contractsFile;
         this.bidsFile = bidsFile;
         this.xmlContracts = createXMLFile(contractsFile);
+        this.jsonBids = buildJsonObject(bidsFile);
         readContractsFileXML();
+    }
+    
+    private JSONObject buildJsonObject(String filePath){
+        System.out.println("Start: buildJsonObject");
+        //String for storing json file text
+        String jsonText = "";
+        
+        try {
+            //get String from file
+            Scanner scan = new Scanner(new File(filePath));
+            while (scan.hasNextLine()){
+                jsonText += scan.nextLine();
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ContractModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        try {
+            //Parse existing json
+            JSONParser parser = new JSONParser();
+            //object to be returned
+            JSONObject newObject;
+            newObject = (JSONObject) parser.parse(jsonText);
+            System.out.println("End: buildJsonObject success");
+            return newObject;
+        } catch (ParseException ex) {
+            Logger.getLogger(ContractModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        System.out.println("End: buildJsonObject failure");
+        return null;
     }
     
     protected void readContractsFile(){
@@ -105,7 +143,7 @@ class ContractModel {
     }
     
     protected Document createXMLFile(String filename){
-        
+        System.out.println("Start: createXMLFile");
         try {
             File contractsXML = new File(this.contractsFile);
             
@@ -115,7 +153,8 @@ class ContractModel {
             xmlBuilder = xmlFactory.newDocumentBuilder();
             Document xmlFile = xmlBuilder.parse(contractsXML);
             xmlFile.getDocumentElement().normalize();
-            
+
+            System.out.println("End: createXMLFile success");
             return xmlFile;
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(ContractModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -124,26 +163,24 @@ class ContractModel {
         } catch (IOException ex) {
             Logger.getLogger(ContractModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        System.out.println("End: createXMLFile failure");
         return null;
     }
     
     protected void readContractsFileXML(){
+        System.out.println("Start: readContractsFileXML");
+        
         //Clear existing ArrayList; used when adding contract and reloading file
         theContracts = new ArrayList<Contract>();
         contractCounter = 0;
         originCityList = new TreeSet<>();
         listContractID = new ArrayList<String>();
-
-             
-        //create filewriter; boolean indicates append preference
-        System.out.println("Trying to write to XML file.");
         
         //Create list of xml nodes from instance Document xmlFile
         NodeList nodes = xmlContracts.getElementsByTagName("contract");
         for (int i = 0; i < nodes.getLength(); i++){
             Node newNode = nodes.item(i);
-            System.out.println("Current element: " + newNode.getNodeName());
+            //System.out.println("Current element: " + newNode.getNodeName());
             
             if (newNode.getNodeType() == Node.ELEMENT_NODE){
                 Element eElement = (Element) newNode;
@@ -174,6 +211,7 @@ class ContractModel {
         theContractsAll = new ArrayList<>(theContracts);
         //reset the cities dropdown list
         updateContractList("All");
+        System.out.println("End: readContractsFileXML");
         
     }
     
@@ -249,7 +287,7 @@ class ContractModel {
     
     public void writeNewContractXML(String contractID, String originCity, String destCity, String orderItem, JDialog jDialog){
        
-        System.out.println("Trying to write to XML file.");
+        System.out.println("Start: writeNewContractXML");
         
         //get root element
         Element root = xmlContracts.getDocumentElement();
@@ -289,22 +327,57 @@ class ContractModel {
             StreamResult result = new StreamResult(writer);
             
             //create XML File
+            System.out.println(source.toString());
             transformer.transform(source, result);
             
             //close filewriter
             writer.close();
-            
-            System.out.println("Save successful");
+            //prettyXML(); //tried to remove extra spaces, but no dice
+            System.out.println("End: writeNewContractXML success");
             JOptionPane.showMessageDialog(jDialog, "File saved successfully.");
         } catch (TransformerConfigurationException ex) {
-            System.out.println("XML write not successful");
+            System.out.println("End: writeNewContractXML failure 1");
             JOptionPane.showMessageDialog(jDialog, "File has encountered an error while saving.");
             Logger.getLogger(ContractModel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            System.out.println("End: writeNewContractXML failure 2");
             Logger.getLogger(ContractModel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerException ex) {
+            System.out.println("End: writeNewContractXML failure 3");
             Logger.getLogger(ContractModel.class.getName()).log(Level.SEVERE, null, ex);
         }  
+    }
+    
+    private void prettyXML(){
+        try {
+            //create filewriter
+            FileWriter writer = new FileWriter(new File(contractsFile));
+            BufferedWriter output = new BufferedWriter(writer);
+            
+            //create scanner
+            Scanner scan = new Scanner(new File(contractsFile));
+            
+            //loop to remove extra lines
+            while (scan.hasNextLine()){
+                String temp = scan.nextLine();
+                System.out.println(temp);
+                //if the next line is blank
+                if (!temp.equals("")){
+                    writer.write(temp);
+                } else {
+                    //don't do anything with input
+                    scan.nextLine();
+                }
+            }
+            
+            //close scanner and file
+            scan.close();
+            output.close();
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ContractModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     public void writeNewBid(String name, String contractID, String bidAmount, String timestamp, JDialog jDialog){
@@ -328,6 +401,41 @@ class ContractModel {
             JOptionPane.showMessageDialog(jDialog, "Your name as " + name + " with bid amount " + bidAmount + " has been successfully saved.");
         } catch (IOException ex) {
             System.out.println("Error: " + ex);
+            JOptionPane.showMessageDialog(jDialog, "File could not be written to. Check file permissions.");
+        }
+    }
+    
+    public void writeNewBidJSON(String name, String contractID, String bidAmount, String timestamp, JDialog jDialog){
+        System.out.println("Start: writeNewBidJSON");
+
+        //create new JSONObject, add key:value pairs
+        JSONObject newBid = new JSONObject();
+        newBid.put("name", name);
+        newBid.put("contractID", contractID);
+        newBid.put("bidAmount", bidAmount);
+        newBid.put("timestamp", timestamp);
+        
+        //create json array from existing contracts
+        JSONArray list = (JSONArray) jsonBids.get("bids");
+        //attach new item to array
+        list.add(newBid);
+        System.out.println(jsonBids.toString());
+        
+        //try to write to file, otherwise print error message
+        try {
+            //set up file writer
+            File contractRecords = new File(this.bidsFile);
+            //boolean here determines append or not
+            FileWriter filewriter = new FileWriter(contractRecords, false);
+            BufferedWriter output = new BufferedWriter(filewriter);
+
+            //write to file
+            output.write(jsonBids.toJSONString());
+            output.close();
+            System.out.println("End: writeNewBidJSON success");
+            JOptionPane.showMessageDialog(jDialog, "Your name as " + name + " with bid amount " + bidAmount + " has been successfully saved.");
+        } catch (IOException ex) {
+            System.out.println("End: writeNewBidJSON failure");
             JOptionPane.showMessageDialog(jDialog, "File could not be written to. Check file permissions.");
         }
     }

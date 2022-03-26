@@ -12,7 +12,7 @@ public class SelectContract {
      */
     public static void main(String[] args) {
         ContractView theView = new ContractView();
-        ContractModel theModel = new ContractModel("./contracts.xml", "./bids.txt");
+        ContractModel theModel = new ContractModel("./contracts.xml", "./bids.json");
         ContractController theController = new ContractController(theView, theModel);
         theView.setVisible(true);
     }

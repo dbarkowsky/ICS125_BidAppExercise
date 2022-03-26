@@ -11,4 +11,17 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
     <name>SelectContractPart4</name>
+    <dependencies>
+        <dependency>
+            <groupId>group.id</groupId>
+            <artifactId>artifact.id</artifactId>
+            <version>1.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>xml.id</groupId>
+            <artifactId>xml.id</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -66,6 +66,7 @@ class ContractController {
     
     //Inner Classes
     //Action Listener implementations go here
+    //When previous button is pressed
     class PrevButtonListener implements ActionListener{
         
         @Override
@@ -87,6 +88,7 @@ class ContractController {
         }
     }
     
+    //When next button is pressed
     class NextButtonListener implements ActionListener{
         
         @Override
@@ -108,10 +110,12 @@ class ContractController {
         }
     }
  
+    //When combo box for city names is changed
     class ComboListener implements ItemListener {
         @Override
         public void itemStateChanged(ItemEvent e){
             System.out.println(e.getItem().toString());
+            //if the state is changed, update list based on returned string
             if (e.getStateChange() == ItemEvent.SELECTED){
                 String selectedCity = e.getItem().toString();
                 System.out.println(selectedCity);
@@ -121,6 +125,7 @@ class ContractController {
         }
     }
     
+    //When bid button is pressed
     class BidButtonListener implements ActionListener{
         
         @Override
@@ -141,6 +146,7 @@ class ContractController {
         }
     }
     
+    //When New Contract option is selected
     class NewContractListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
@@ -169,6 +175,7 @@ class ContractController {
         }
     }
     
+    //When quit button is pressed
     class QuitListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){

@@ -38,6 +38,12 @@ import org.json.simple.parser.ParseException;
  *
  * @author Dylan
  */
+/*
+Model handles data manipulation for the application. All reading and writing of files is done here.
+It also creates ArrayLists for the contracts.
+Originally all files were text. It was later changed to use JSON and XML. 
+I have kept some of the old code for reference.
+*/
 class ContractModel {
     private ArrayList<Contract> theContracts;
     protected ArrayList<Contract> theContractsAll;
@@ -49,7 +55,7 @@ class ContractModel {
     protected Document xmlContracts;
     protected JSONObject jsonBids;
     
-    
+    //Used back with comma separated text files
     private static final int NUMBER_OF_CONTRACT_ATTRIBUTES = 4;
     private static final int INDEX_OF_CONTRACT_ID = 0;
     private static final int INDEX_OF_ORIGIN_CITY = 1;
@@ -58,7 +64,7 @@ class ContractModel {
     
     ContractModel(String contractsFile, String bidsFile){
         
-
+        //save location of files, create XML and JSON objects, read the XML
         this.contractsFile = contractsFile;
         this.bidsFile = bidsFile;
         this.xmlContracts = createXMLFile(contractsFile);
@@ -66,6 +72,9 @@ class ContractModel {
         readContractsFileXML();
     }
     
+    /*
+    Builds JSON object for use throughout app. Returns object to constructor.
+    */
     private JSONObject buildJsonObject(String filePath){
         System.out.println("Start: buildJsonObject");
         //String for storing json file text
@@ -87,6 +96,7 @@ class ContractModel {
             JSONParser parser = new JSONParser();
             //object to be returned
             JSONObject newObject;
+            //parse and assign to newObject
             newObject = (JSONObject) parser.parse(jsonText);
             System.out.println("End: buildJsonObject success");
             return newObject;
@@ -98,6 +108,7 @@ class ContractModel {
         return null;
     }
     
+    //reads original text file, NOW DEPRECIATED
     protected void readContractsFile(){
         //Clear existing ArrayList; used when adding contract and reloading file
         theContracts = new ArrayList<Contract>();
@@ -141,6 +152,9 @@ class ContractModel {
         }
     }
     
+    /*
+    Creates XML Document, returns Document to constructor
+    */
     protected Document createXMLFile(String filename){
         System.out.println("Start: createXMLFile");
         try {
@@ -150,6 +164,7 @@ class ContractModel {
             DocumentBuilderFactory xmlFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder xmlBuilder;
             xmlBuilder = xmlFactory.newDocumentBuilder();
+            //Parse file into XML
             Document xmlFile = xmlBuilder.parse(contractsXML);
             xmlFile.getDocumentElement().normalize();
 
@@ -166,6 +181,10 @@ class ContractModel {
         return null;
     }
     
+    /*
+    Read XML file and store contracts in the existing ArrayList
+    Also builds a list for originCity and a list for contractID
+    */
     protected void readContractsFileXML(){
         System.out.println("Start: readContractsFileXML");
         
@@ -263,6 +282,7 @@ class ContractModel {
         contractCounter = 0;
     }
     
+    //Original method for writing to text file; NOW DEPRECIATED
     public void writeNewContract(String contractID, String originCity, String destCity, String orderItem, JDialog jDialog){
 
         try {
@@ -284,6 +304,9 @@ class ContractModel {
         }
     }
     
+    /*
+    Writes XML to xml file
+    */
     public void writeNewContractXML(String contractID, String originCity, String destCity, String orderItem, JDialog jDialog){
        
         System.out.println("Start: writeNewContractXML");
@@ -347,6 +370,7 @@ class ContractModel {
         }  
     }
     
+    //Tried to force XML to pretty print... not working yet
     private void prettyXML(){
         try {
             //create filewriter
@@ -379,6 +403,7 @@ class ContractModel {
         
     }
     
+    //Original method to write bid to text; NOW DEPRECIATED
     public void writeNewBid(String name, String contractID, String bidAmount, String timestamp, JDialog jDialog){
         
         String outputString =   name + "," +
@@ -404,6 +429,10 @@ class ContractModel {
         }
     }
     
+    /*
+    Writes bids to JSON file.
+    Currently doesn't pretty-print. Only prints as one line.
+    */
     public void writeNewBidJSON(String name, String contractID, String bidAmount, String timestamp, JDialog jDialog){
         System.out.println("Start: writeNewBidJSON");
 

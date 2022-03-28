@@ -14,6 +14,11 @@ import javax.swing.JOptionPane;
  *
  * @author Dylan
  */
+
+/*
+This class governs the new window that pops up when entering a new contract.
+Only deals with some basic verification. Data later passed to theModel by the Controller.
+*/
 public class NewContract extends JDialog {
     
     

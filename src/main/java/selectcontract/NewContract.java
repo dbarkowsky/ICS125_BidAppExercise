@@ -221,10 +221,15 @@ public class NewContract extends JDialog {
         //convert contract ID to uppercase
         jTextFieldContractID.setText(jTextFieldContractID.getText().toUpperCase());
         
-        try {
+        try {            
             //Contract ID and Order Item cannot be blank
             if (jTextFieldContractID.getText().equals("") || jTextFieldOrderItem.getText().equals("")){
                 throw new Exception("All fields must be populated.");
+            }
+            //compare entered ID with existing IDs
+            System.out.println("Checking input against ID list");
+            if (listContractID.contains(jTextFieldContractID.getText())){
+                throw new Exception("This ID already exists in the contracts file.");
             }
             //contract ID must be this format: [1-9][A-Z]{3}
             if (!jTextFieldContractID.getText().matches("^[1-9][A-Z]{3}")){
@@ -238,12 +243,7 @@ public class NewContract extends JDialog {
             if (jTextFieldOrderItem.getText().contains(",") || jTextFieldOrderItem.getText().matches("^[0-9]+$")){
                 throw new Exception("Order Items cannot be exclusively numbers or contain commas.");
             }
-                    
-            //compare entered ID with existing IDs
-            System.out.println("Checking input against ID list");
-            if (listContractID.contains(jTextFieldContractID.getText())){
-                throw new Exception("This ID already exists in the contracts file.");
-            }
+                            
 
             //all checks passed? assign to variables so they can get passed to theModel
             this.contractID = jTextFieldContractID.getText();
@@ -280,6 +280,7 @@ public class NewContract extends JDialog {
 
     // Display error message
     void displayErrorMessage(String errorMessage){
+        errorMessage = errorMessage.substring(errorMessage.indexOf(":")+1);
         JOptionPane.showMessageDialog(this, errorMessage);
     }
     

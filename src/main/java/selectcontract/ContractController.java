@@ -137,7 +137,11 @@ class ContractController {
                 //centres dialogue on screen
                 cb.setLocationRelativeTo(null);
                 cb.setVisible(true);
-                theModel.writeNewBidJSON(cb.name, cb.contractID, cb.bidAmount, cb.timestamp, cb);
+                //values could be null if they just close the window. Don't write that info to file.
+                if(cb.name != null){
+                    theModel.writeNewBidJSON(cb.name, cb.contractID, cb.bidAmount, cb.timestamp, cb);
+                    theView.displayErrorMessage("Your name as " + cb.name + " with bid amount " + cb.bidAmount + " has been successfully saved.");
+                }
             } catch (Exception ex){
                 System.out.println(ex);
                 theView.displayErrorMessage("Error: Could not bid on this contract.");

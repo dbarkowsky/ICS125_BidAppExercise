@@ -233,6 +233,7 @@ public class ConfirmBid extends javax.swing.JDialog {
                 this.bidAmount = currency.format(bidAmount);
                 this.timestamp = currentDate.format(dateFormat);
                 
+            
                 this.dispose();
 
             } else {

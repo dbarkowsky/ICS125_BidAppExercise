@@ -3,12 +3,12 @@
         <contractID>3SFD</contractID>
         <originCity>Victoria</originCity>
         <destCity>Vancouver</destCity>
-        <orderItem>dsfs</orderItem>
+        <orderItem>Cars</orderItem>
     </contract>
     <contract>
         <contractID>3FSF</contractID>
         <originCity>Prince George</originCity>
         <destCity>Victoria</destCity>
-        <orderItem>sdfsd</orderItem>
+        <orderItem>Lollipops</orderItem>
     </contract>
-<contract><contractID>2FDS</contractID><originCity>Victoria</originCity><destCity>Seattle</destCity><orderItem>Houses</orderItem></contract><contract><contractID>6GFD</contractID><originCity>Seattle</originCity><destCity>Victoria</destCity><orderItem>sfsfs</orderItem></contract><contract><contractID>3FDS</contractID><originCity>Vancouver</originCity><destCity>Victoria</destCity><orderItem>sfs</orderItem></contract></contracts>
+<contract><contractID>2FDS</contractID><originCity>Victoria</originCity><destCity>Seattle</destCity><orderItem>Houses</orderItem></contract><contract><contractID>6GFD</contractID><originCity>Seattle</originCity><destCity>Victoria</destCity><orderItem>Asphalt</orderItem></contract><contract><contractID>3FDS</contractID><originCity>Vancouver</originCity><destCity>Victoria</destCity><orderItem>Houses</orderItem></contract><contract><contractID>7UIO</contractID><originCity>Vancouver</originCity><destCity>Nanaimo</destCity><orderItem>Hats</orderItem></contract><contract><contractID>6GFT</contractID><originCity>Seattle</originCity><destCity>Victoria</destCity><orderItem>3 Rocks</orderItem></contract></contracts>

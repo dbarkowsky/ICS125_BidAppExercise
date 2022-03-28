@@ -157,9 +157,19 @@ class ContractModel {
     */
     protected Document createXMLFile(String filename){
         System.out.println("Start: createXMLFile");
+        
         try {
-            File contractsXML = new File(this.contractsFile);
             
+            //if file exists but is empty of any text, or if file doesn't exist
+            File contractsXML = new File(contractsFile);
+            BufferedReader reader = new BufferedReader(new FileReader(contractsFile));
+            if(reader.readLine() == null || !contractsXML.exists()){
+                FileWriter makeBase = new FileWriter(this.contractsFile, true);
+                makeBase.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><contracts>\n</contracts>");
+                makeBase.close();
+            }
+            reader.close();
+                
             //Create objects for XML building
             DocumentBuilderFactory xmlFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder xmlBuilder;
@@ -461,7 +471,7 @@ class ContractModel {
             output.write(jsonBids.toJSONString());
             output.close();
             System.out.println("End: writeNewBidJSON success");
-            JOptionPane.showMessageDialog(jDialog, "Your name as " + name + " with bid amount " + bidAmount + " has been successfully saved.");
+            
         } catch (IOException ex) {
             System.out.println("End: writeNewBidJSON failure");
             JOptionPane.showMessageDialog(jDialog, "File could not be written to. Check file permissions.");

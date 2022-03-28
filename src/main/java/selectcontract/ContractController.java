@@ -163,7 +163,7 @@ class ContractController {
                 //pass values to theModel for saving
                 theModel.writeNewContractXML(newContractView.contractID, newContractView.originCity, newContractView.destCity, newContractView.orderItem, newContractView);
 
-                //model rebuilds XML document
+                //model rebuilds from XML document
                 theModel.xmlContracts = theModel.createXMLFile(theModel.contractsFile);
             }
             

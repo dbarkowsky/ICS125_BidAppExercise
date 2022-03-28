@@ -81,12 +81,25 @@ class ContractModel {
         String jsonText = "";
         
         try {
+            //if file exists but is empty of any text, or if file doesn't exist
+            File bidsJSON = new File(filePath);
+            BufferedReader reader = new BufferedReader(new FileReader(bidsJSON));
+            if(reader.readLine() == null || !bidsJSON.exists()){
+                FileWriter makeBase = new FileWriter(bidsJSON);
+                makeBase.write("{\"bids\":[]}");
+                makeBase.close();
+            }
+            reader.close();
+            
             //get String from file
             Scanner scan = new Scanner(new File(filePath));
             while (scan.hasNextLine()){
                 jsonText += scan.nextLine();
             }
+            scan.close();
         } catch (FileNotFoundException ex) {
+            Logger.getLogger(ContractModel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(ContractModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -164,8 +177,8 @@ class ContractModel {
             File contractsXML = new File(contractsFile);
             BufferedReader reader = new BufferedReader(new FileReader(contractsFile));
             if(reader.readLine() == null || !contractsXML.exists()){
-                FileWriter makeBase = new FileWriter(this.contractsFile, true);
-                makeBase.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><contracts>\n</contracts>");
+                FileWriter makeBase = new FileWriter(contractsXML);
+                makeBase.write("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<contracts>\n</contracts>");
                 makeBase.close();
             }
             reader.close();

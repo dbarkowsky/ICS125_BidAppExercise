@@ -4,12 +4,8 @@
  */
 package selectcontract;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -20,11 +16,6 @@ import javax.swing.JOptionPane;
  */
 public class NewContract extends JDialog {
     
-    private static final int NUMBER_OF_CONTRACT_ATTRIBUTES = 4;
-    private static final int INDEX_OF_CONTRACT_ID = 0;
-    private static final int INDEX_OF_ORIGIN_CITY = 1;
-    private static final int INDEX_OF_DEST_CITY = 2;
-    private static final int INDEX_OF_ORDER_ID = 3;
     
     //pre-determined list of city choices
     private final String [] cityList = {"Victoria", "Vancouver", "Seattle", "Nanaimo", "Prince George"};

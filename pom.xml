@@ -13,14 +13,13 @@
     <name>SelectContractPart4</name>
     <dependencies>
         <dependency>
-            <groupId>group.id</groupId>
-            <artifactId>artifact.id</artifactId>
+            <groupId>org.json.simple</groupId>
+            <artifactId>json</artifactId>
             <version>1.0</version>
-            <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>xml.id</groupId>
-            <artifactId>xml.id</artifactId>
+            <groupId>org.w3c.dom</groupId>
+            <artifactId>xml</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>

@@ -59,6 +59,9 @@ public class ContractView extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(750, 600));
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel1.setMaximumSize(new java.awt.Dimension(664, 107));
+        jPanel1.setMinimumSize(new java.awt.Dimension(664, 107));
+        jPanel1.setPreferredSize(new java.awt.Dimension(673, 107));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -78,7 +81,7 @@ public class ContractView extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addGap(183, 183, 183)
                 .addComponent(jComboOriginCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(288, Short.MAX_VALUE))
+                .addContainerGap(294, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
